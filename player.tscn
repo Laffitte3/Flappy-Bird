@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbjru1bbyhykj"]
+
+[ext_resource type="Texture2D" uid="uid://dfmw0n22cmgyb" path="res://flappy-bird-assets/sprites/yellowbird-midflap.png" id="1_8j7hj"]
+[ext_resource type="Texture2D" uid="uid://ckfhpf2d16wh3" path="res://flappy-bird-assets/sprites/yellowbird-downflap.png" id="2_4g745"]
+[ext_resource type="Texture2D" uid="uid://c0rnxmsqgmu6o" path="res://flappy-bird-assets/sprites/yellowbird-upflap.png" id="3_rf53h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_207p0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8j7hj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4g745")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8j7hj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rf53h")
+}],
+"loop": true,
+"name": &"flap",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ffsvx"]
+radius = 16.0
+
+[node name="Player" type="RigidBody2D"]
+position = Vector2(57, 152)
+mass = 0.48
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-4, 0)
+sprite_frames = SubResource("SpriteFrames_207p0")
+animation = &"flap"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 1)
+shape = SubResource("CircleShape2D_ffsvx")

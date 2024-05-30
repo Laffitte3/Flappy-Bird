@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbcryjsurskop"]
+
+[ext_resource type="PackedScene" uid="uid://bbjru1bbyhykj" path="res://player.tscn" id="1_hptlw"]
+[ext_resource type="Texture2D" uid="uid://5u66futhhbq4" path="res://flappy-bird-assets/sprites/background-day.png" id="2_abebm"]
+[ext_resource type="Script" path="res://ParallaxBackground.gd" id="2_lmgt0"]
+[ext_resource type="Script" path="res://player.gd" id="2_lxkls"]
+[ext_resource type="Texture2D" uid="uid://bj1o846f2ewft" path="res://flappy-bird-assets/sprites/background-night.png" id="3_7my61"]
+[ext_resource type="Texture2D" uid="uid://bp8ylueanynyk" path="res://flappy-bird-assets/sprites/base.png" id="4_q3p7t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ufqsv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_abebm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_abebm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_abebm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_abebm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_abebm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_abebm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_abebm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7my61")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7my61")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7my61")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Game" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource("1_hptlw")]
+script = ExtResource("2_lxkls")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("2_lmgt0")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(350, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(181, 319)
+scale = Vector2(1.25694, 1.23828)
+sprite_frames = SubResource("SpriteFrames_ufqsv")
+frame = 6
+frame_progress = 0.520904
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(350, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(180, 593)
+scale = Vector2(1.05952, 0.839286)
+texture = ExtResource("4_q3p7t")
