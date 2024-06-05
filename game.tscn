@@ -1,11 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbcryjsurskop"]
+[gd_scene load_steps=10 format=3 uid="uid://bbcryjsurskop"]
 
-[ext_resource type="PackedScene" uid="uid://bbjru1bbyhykj" path="res://player.tscn" id="1_hptlw"]
+[ext_resource type="Script" path="res://game.gd" id="1_qd8hw"]
 [ext_resource type="Texture2D" uid="uid://5u66futhhbq4" path="res://flappy-bird-assets/sprites/background-day.png" id="2_abebm"]
 [ext_resource type="Script" path="res://ParallaxBackground.gd" id="2_lmgt0"]
-[ext_resource type="Script" path="res://player.gd" id="2_lxkls"]
 [ext_resource type="Texture2D" uid="uid://bj1o846f2ewft" path="res://flappy-bird-assets/sprites/background-night.png" id="3_7my61"]
 [ext_resource type="Texture2D" uid="uid://bp8ylueanynyk" path="res://flappy-bird-assets/sprites/base.png" id="4_q3p7t"]
+[ext_resource type="PackedScene" uid="uid://bbjru1bbyhykj" path="res://player.tscn" id="6_dfige"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ufqsv"]
 animations = [{
@@ -45,10 +45,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Game" type="Node"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wckhf"]
+size = Vector2(364, 90)
 
-[node name="Player" parent="." instance=ExtResource("1_hptlw")]
-script = ExtResource("2_lxkls")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_msq1i"]
+size = Vector2(374, 20)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_qd8hw")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("2_lmgt0")
@@ -70,3 +74,23 @@ motion_mirroring = Vector2(350, 0)
 position = Vector2(180, 593)
 scale = Vector2(1.05952, 0.839286)
 texture = ExtResource("4_q3p7t")
+
+[node name="Suelo" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Suelo"]
+position = Vector2(180, 599)
+shape = SubResource("RectangleShape2D_wckhf")
+
+[node name="Techo" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Techo"]
+position = Vector2(177, 0)
+shape = SubResource("RectangleShape2D_msq1i")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true
+
+[node name="Player" parent="." instance=ExtResource("6_dfige")]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
