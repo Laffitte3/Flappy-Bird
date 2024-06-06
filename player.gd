@@ -19,9 +19,16 @@ func _integrate_forces(state):
 		
 		
 func morir():
-	
-	get_tree().reload_current_scene()
-	
+	get_tree().paused = true 
+	$"../Message".show()
+	$"../Message/Gameover".show()
+
 func SubirScore():
 	score += 1
-	print(score)
+	$"../scotreLabel".text = str(score)
+
+
+func _on_detecta_suelo_y_techo_body_entered(body):
+	if body.is_in_group("suelo y techo"):
+		morir()
+ 

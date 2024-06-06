@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbcryjsurskop"]
+[gd_scene load_steps=15 format=3 uid="uid://bbcryjsurskop"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_qd8hw"]
 [ext_resource type="Texture2D" uid="uid://5u66futhhbq4" path="res://flappy-bird-assets/sprites/background-day.png" id="2_abebm"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bj1o846f2ewft" path="res://flappy-bird-assets/sprites/background-night.png" id="3_7my61"]
 [ext_resource type="Texture2D" uid="uid://bp8ylueanynyk" path="res://flappy-bird-assets/sprites/base.png" id="4_q3p7t"]
 [ext_resource type="PackedScene" uid="uid://bbjru1bbyhykj" path="res://player.tscn" id="6_dfige"]
+[ext_resource type="FontFile" uid="uid://npefoxuc8g1y" path="res://flappy-bird-assets/Flappy-Bird.ttf" id="7_4346c"]
+[ext_resource type="Texture2D" uid="uid://bn83we6gmhhvu" path="res://flappy-bird-assets/sprites/message.png" id="8_ycpp8"]
+[ext_resource type="Script" path="res://Message.gd" id="9_lpif7"]
+[ext_resource type="Texture2D" uid="uid://de3hegqvsvx7t" path="res://flappy-bird-assets/sprites/gameover.png" id="10_fag4e"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ufqsv"]
 animations = [{
@@ -51,6 +55,11 @@ size = Vector2(364, 90)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msq1i"]
 size = Vector2(374, 20)
 
+[sub_resource type="LabelSettings" id="LabelSettings_hm0sp"]
+font = ExtResource("7_4346c")
+font_size = 100
+outline_color = Color(0.06, 0.06, 0.06, 1)
+
 [node name="Game" type="Node"]
 script = ExtResource("1_qd8hw")
 
@@ -75,13 +84,13 @@ position = Vector2(180, 593)
 scale = Vector2(1.05952, 0.839286)
 texture = ExtResource("4_q3p7t")
 
-[node name="Suelo" type="StaticBody2D" parent="."]
+[node name="Suelo" type="StaticBody2D" parent="." groups=["suelo y techo"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Suelo"]
 position = Vector2(180, 599)
 shape = SubResource("RectangleShape2D_wckhf")
 
-[node name="Techo" type="StaticBody2D" parent="."]
+[node name="Techo" type="StaticBody2D" parent="." groups=["suelo y techo"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Techo"]
 position = Vector2(177, 0)
@@ -92,5 +101,33 @@ wait_time = 2.5
 autostart = true
 
 [node name="Player" parent="." instance=ExtResource("6_dfige")]
+visible = false
+
+[node name="scotreLabel" type="Label" parent="."]
+z_index = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.606
+anchor_bottom = 0.075
+offset_left = 4.0
+offset_top = 21.0
+offset_right = 31.84
+offset_bottom = 32.0
+grow_horizontal = 2
+text = "0"
+label_settings = SubResource("LabelSettings_hm0sp")
+
+[node name="Message" type="Sprite2D" parent="."]
+process_mode = 3
+visible = false
+z_index = 2
+position = Vector2(185, 338)
+texture = ExtResource("8_ycpp8")
+script = ExtResource("9_lpif7")
+
+[node name="Gameover" type="Sprite2D" parent="Message"]
+visible = false
+position = Vector2(2, -181)
+texture = ExtResource("10_fag4e")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

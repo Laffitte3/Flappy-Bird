@@ -47,3 +47,11 @@ animation = &"flap"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, 1)
 shape = SubResource("CircleShape2D_ffsvx")
+
+[node name="Detecta_suelo y techo" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detecta_suelo y techo"]
+position = Vector2(-4, 1)
+shape = SubResource("CircleShape2D_ffsvx")
+
+[connection signal="body_entered" from="Detecta_suelo y techo" to="." method="_on_detecta_suelo_y_techo_body_entered"]
